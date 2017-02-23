@@ -2,33 +2,27 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.currentVideo = exampleVideoData[0];
     this.state = {
-      done: false
+      currentVideo: exampleVideoData[0],
+      listVideo: exampleVideoData
     };
     this.onListItemClick = this.onListItemClick.bind(this);
   }
-  onListItemClick() {
-    console.log('this', this);
+  onListItemClick(obj) {
     this.setState({
-      done: !this.state.done
+      currentVideo: obj
     });
   }
 
-  handleClick(e) {
-    // console.log( 'this is:', this);
-  }
-
   render() {
-    // console.log('video', this.currentVideo);
     return (
       <div>
         <Nav />
         <div className="col-md-7">
-          <VideoPlayer video={this.currentVideo}/>
+          <VideoPlayer video={this.state.currentVideo}/>
         </div>
         <div className="col-md-5">
-          <VideoList videos={window.exampleVideoData} videoChange={this.onListItemClick}/>
+          <VideoList videos={this.state.listVideo} videoChange={this.onListItemClick}/>
         </div>
       </div>
     );

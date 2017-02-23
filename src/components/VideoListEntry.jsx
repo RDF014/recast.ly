@@ -1,11 +1,6 @@
 var VideoListEntry = (props) => {
   const onClickListItem = event => {
-    // debugger;
-    App.prototype.currentVideo = props.video;
-    // App.prototype.render();
-    // App.prototype.onListItemClick();
-    console.log(props);
-    props.videoChange();
+    props.videoChange(props.video);
   };
 
   return (
