@@ -4,9 +4,10 @@ class App extends React.Component {
 
     this.state = {
       currentVideo: exampleVideoData[0],
-      listVideo: exampleVideoData
+      listVideo: []
     };
     this.onListItemClick = this.onListItemClick.bind(this);
+    this.videoSearch = this.videoSearch.bind(this);
   }
   onListItemClick(obj) {
     this.setState({
@@ -14,10 +15,27 @@ class App extends React.Component {
     });
   }
 
+  videoSearch(text) {
+    this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: text, max: 5}, (videos) => {
+      this.setState({
+        listVideo: videos,
+        currentVideo: videos[0]
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.props.searchYouTube({key: window.YOUTUBE_API_KEY, query: 'Dogs', max: 5}, (videos) => {
+      this.setState({
+        listVideo: videos
+      });
+    });
+  }
+
   render() {
     return (
       <div>
-        <Nav />
+        <Nav videoSearch={this.videoSearch}/>
         <div className="col-md-7">
           <VideoPlayer video={this.state.currentVideo}/>
         </div>
